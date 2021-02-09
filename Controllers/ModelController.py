@@ -1,3 +1,5 @@
+import sys
+import os
 import pandas as pd
 import numpy as np
 import pickle
@@ -5,13 +7,15 @@ from sklearn.preprocessing import StandardScaler
 import logging
 logging.basicConfig(level=logging.INFO)
 
+print(os.getcwd())
 logging.info("Loading trained model...")
-filename = "Controllers/finalized_model.sav"
+filename = "finalized_model.sav"
 loaded_model = pickle.load(open(filename, 'rb'))
 logging.info("trained model loaded")
 
 logging.info("Loading input data...")
-df = pd.read_csv('Controllers/test.csv')
+df = pd.read_csv(sys.argv[1])
+tempdf = df
 df = df.drop(columns=['nic'])
 X = df.loc[:, df.columns != 'churn']
 logging.info("input data loaded")
@@ -19,6 +23,7 @@ logging.info("input data loaded")
 logging.info("Drop and fill")
 for col in df.columns:
     df.dropna(thresh=10, how='all', inplace=True)
+    tempdf.dropna(thresh=10, how='all', inplace=True)
     df.fillna(df.median(), inplace=True)
 
 logging.info("Convert all to int")
@@ -31,6 +36,12 @@ for col_name in df.columns:
 
 scaler = StandardScaler()
 df = pd.DataFrame(scaler.fit_transform(df.values), columns=X.columns)
+
 logging.info("Precict churn")
 result = loaded_model.predict(df)
-print(result)
+
+logging.info("Add prediction")
+tempdf["churn"] = result
+
+logging.info("Save to outputfiles")
+tempdf.to_csv("output.csv")
