@@ -2,3 +2,6 @@
 /.vscode
 /debug.log
 /IR 1.ipynb
+*.json
+*.suo
+*.sqlite
