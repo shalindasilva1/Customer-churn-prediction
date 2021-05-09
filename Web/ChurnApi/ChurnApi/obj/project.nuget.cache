@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "/555hUjDfqWNyVVZOept9iIYr97w78iAm+pWwDaQMySrDcmlxEAOnAEMsF01Yw94XhnRZGROjabyOr0DsBM2ZQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Shalinda\\source\\repos\\shalindasilva1\\ML-Project\\Web\\ChurnApi\\ChurnAPI\\ChurnAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Shalinda\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512"
+  ],
+  "logs": []
+}
