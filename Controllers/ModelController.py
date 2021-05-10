@@ -6,7 +6,7 @@ import pickle
 from sklearn.preprocessing import StandardScaler
 import logging
 logging.basicConfig(level=logging.INFO)
-
+parameter = 0
 print(os.getcwd())
 logging.info("Loading trained model...")
 filename = "finalized_model.sav"
@@ -45,3 +45,5 @@ tempdf["churn"] = result
 
 logging.info("Save to outputfiles")
 tempdf.to_csv("output.csv")
+
+parameter = 1

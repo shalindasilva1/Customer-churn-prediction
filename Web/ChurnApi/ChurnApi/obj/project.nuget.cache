@@ -1,10 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "/555hUjDfqWNyVVZOept9iIYr97w78iAm+pWwDaQMySrDcmlxEAOnAEMsF01Yw94XhnRZGROjabyOr0DsBM2ZQ==",
+  "dgSpecHash": "DsjYA5iFiJItAHyPmi9/pjXiMqE9uayp5Cfns7/aouF73itujc0onw4JlKsJ06koa4Ek4oDyhPSJWp1lzyifWQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Shalinda\\source\\repos\\shalindasilva1\\ML-Project\\Web\\ChurnApi\\ChurnAPI\\ChurnAPI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Shalinda\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512"
+    "C:\\Users\\Shalinda\\.nuget\\packages\\dynamiclanguageruntime\\1.3.0\\dynamiclanguageruntime.1.3.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\ironpython\\2.7.11\\ironpython.2.7.11.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.13\\microsoft.visualstudio.azure.containers.tools.targets.1.10.13.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.codedom\\4.7.0\\system.codedom.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.7.0\\system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
+    "C:\\Users\\Shalinda\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }
