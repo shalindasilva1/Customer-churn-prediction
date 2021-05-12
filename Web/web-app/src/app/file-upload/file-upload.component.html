@@ -1,0 +1,31 @@
+<div class="container d-grid gap-4">
+    <div class="col-md-12 text-center">
+        <h2>Check your customers churn</h2>
+        <hr>
+    </div>
+    <div class="col-md-12 text-left">
+        <h4>1. Prepare your data as below</h4>
+        <img class="col-md-12" src="../../assets/img/sample data.png">
+    </div>
+    <div class="col-md-12 text-left">
+        <h4>2. Save your data as a ".csv" file</h4>
+        <img class="col-md-12" src="../../assets/img/csvfile.png">
+    </div>
+    <div class="col-md-12">
+        <h4>3. Upload file</h4>
+        <input class="form-control" type="file" (change)="onChange($event)">
+        <button (click)="onUpload()" class="btn btn-success">
+            Upload
+        </button>
+    </div>
+    <!-- Shareable short link of  uoloaded file -->
+    <div class="col-md-12" *ngIf="shortLink">
+        <h4>4. Download predicted data</h4>
+        <a href="{{shortLink}}">{{shortLink}}</a>
+    </div>
+
+    <!--Flag variable is used here-->
+    <div class="col-md-12" *ngIf="loading">
+        <h4>Loading ...</h4>
+    </div>
+</div>
