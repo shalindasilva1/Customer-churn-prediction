@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Scripting.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace ChurnAPI.Controllers
@@ -25,28 +27,28 @@ namespace ChurnAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public string Predict()
         {
-            var rng = new Random();
-            var test = PatchParameter();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var cmd = @"c:/Users/Shalinda/source/repos/shalindasilva1/ML-Project/Controllers/ModelController.py";
+            return PatchParameter(cmd, "test.csv");
         }
 
-        private string PatchParameter()
+        private string PatchParameter(string cmd, string args)
         {
-            var engine = Python.CreateEngine(); // Extract Python language engine from their grasp
-            var scope = engine.CreateScope(); // Introduce Python namespace (scope)
-
-            ScriptSource source = engine.CreateScriptSourceFromFile(@"C:\Users\Shalinda\source\repos\shalindasilva1\ML-Project\Controllers\ModelController.py"); // Load the script
-            object result = source.Execute(scope);
-            string parameter = scope.GetVariable<string>("parameter"); // To get the finally set variable 'parameter' from the python script
-            return parameter;
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = "C:/Users/Shalinda/AppData/Local/Programs/Python/Python39/python.exe";
+            start.Arguments = string.Format("{0} {1}", cmd, args);
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadToEnd();
+                    Console.Write(result);
+                }
+            }
+            return "";
         }
     }
 }

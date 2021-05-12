@@ -1,4 +1,5 @@
 import sys
+sys.path.append(r"C:\Program Files\IronPython 2.7\Lib")
 import os
 import pandas as pd
 import numpy as np
@@ -14,7 +15,8 @@ loaded_model = pickle.load(open(filename, 'rb'))
 logging.info("trained model loaded")
 
 logging.info("Loading input data...")
-df = pd.read_csv(sys.argv[1])
+#df = pd.read_csv(sys.argv[1])
+df = pd.read_csv("test.csv")
 tempdf = df
 df = df.drop(columns=['nic'])
 X = df.loc[:, df.columns != 'churn']
