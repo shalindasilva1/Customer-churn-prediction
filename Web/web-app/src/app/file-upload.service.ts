@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class FileUploadService {
   // API url
-  baseApiUrl = 'https://file.io';
+  baseApiUrl = 'http://localhost:35270/Churn';
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class FileUploadService {
     const formData = new FormData();
 
     // Store form name as "file" with file data
-    formData.append('file', file, file.name);
+    formData.append('inputFile', file, file.name);
 
     // Make http post request over api
     // with formData as req

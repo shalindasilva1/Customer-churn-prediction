@@ -20,7 +20,9 @@ namespace ChurnAPI
         {
             services.AddControllers();
             services.AddSwaggerDocument();
-
+            services.AddCors(option => option.AddDefaultPolicy(
+                   builder => builder.AllowAnyOrigin()
+               ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +34,8 @@ namespace ChurnAPI
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
