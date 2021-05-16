@@ -35,7 +35,7 @@ export class FileUploadComponent implements OnInit {
     this.fileUploadService.upload(this.file).subscribe((event: any) => {
       if (typeof event === 'object') {
         // Short link via api response
-        this.shortLink = event.link.replace('/C:\Users\Shalinda\source\repos\shalindasilva1\ML-Project\Web\web-app\src\/gi', '');
+        this.shortLink = event.link.replace('C:\\Users\\Shalinda\\source\\repos\\shalindasilva1\\ML-Project\\Web\\web-app\\src', '');
 
         this.loading = false; // Flag variable
       }

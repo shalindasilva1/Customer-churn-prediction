@@ -21,7 +21,7 @@
     <!-- Shareable short link of  uoloaded file -->
     <div class="col-md-12" *ngIf="shortLink">
         <h4>4. Download predicted data</h4>
-        <a [href]="Sanitize(shortLink)" style="cursor:pointer">Output.csv</a>
+        <a href="../../{{Sanitize(shortLink)}}" style="cursor:pointer">Output.csv</a>
     </div>
 
     <!--Flag variable is used here-->
