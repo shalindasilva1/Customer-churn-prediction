@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { FileUploadService } from '../file-upload.service';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import { empty } from 'rxjs';
+
+declare var require: any;
+const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-file-upload',
@@ -11,9 +16,9 @@ export class FileUploadComponent implements OnInit {
   shortLink = '';
   loading = false; // Flag variable
   file: File | any; // Variable to store file
-
   // Inject service
-  constructor(private fileUploadService: FileUploadService) {}
+  constructor(private fileUploadService: FileUploadService,
+              private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {}
 
@@ -30,10 +35,20 @@ export class FileUploadComponent implements OnInit {
     this.fileUploadService.upload(this.file).subscribe((event: any) => {
       if (typeof event === 'object') {
         // Short link via api response
-        this.shortLink = event.link;
+        this.shortLink = event.link.replace('/C:\Users\Shalinda\source\repos\shalindasilva1\ML-Project\Web\web-app\src\/gi', '');
 
         this.loading = false; // Flag variable
       }
     });
+  }
+
+  DownloadLink(url: string): void{
+    FileSaver.saveAs(url, 'Output.csv');
+  }
+
+  Sanitize(url: string): string {
+    const result = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, this.sanitizer.bypassSecurityTrustResourceUrl(url));
+    if (result == null) { return ''; }
+    return result;
   }
 }

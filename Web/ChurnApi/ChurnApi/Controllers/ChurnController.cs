@@ -13,6 +13,7 @@ namespace ChurnAPI.Controllers
     {
         private readonly string ModelPath = @"C:/Users/Shalinda/source/repos/shalindasilva1/ML-Project/Controllers/ModelController.py";
         private readonly string PythonPath = @"C:/Users/Shalinda/AppData/Local/Programs/Python/Python39/python.exe";
+        private readonly string OutputPath = @"C:\Users\Shalinda\source\repos\shalindasilva1\ML-Project\Web\web-app\src\assets\sessionOutputFiles";
 
         private readonly ILogger<ChurnController> _logger;
 
@@ -20,20 +21,25 @@ namespace ChurnAPI.Controllers
         {
             _logger = logger;
         }
-
-        [HttpPost]
-        public string Predict(IFormFile inputFile)
+        public class Result
         {
+            public string link { get; set; }
+        }
+        [HttpPost]
+        public IActionResult Predict(IFormFile inputFile)
+        {
+            var result = new Result();
             var directoryInfo = TryToCreateNewSessionFolder();
             var inputFilePath = SaveFile(inputFile, directoryInfo.Item1.FullName);
             try
             {
                 GenarateOutputFile(inputFilePath, directoryInfo.Item2);
-                return Path.Combine(directoryInfo.Item1.FullName, "output.csv");
+                result.link = Path.Combine(OutputPath, directoryInfo.Item2, "output.csv");
+                return Ok(result);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return "error!";
+                return StatusCode(500);
             }
         }
 

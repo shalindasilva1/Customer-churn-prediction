@@ -1,3 +1,4 @@
+import os
 import sys
 import pandas as pd
 import numpy as np
@@ -56,7 +57,11 @@ logging.info("Add prediction")
 tempdf["churn"] = result
 #############################################################
 
+directory = sessionId
+parent_dir = r"C:\Users\Shalinda\source\repos\shalindasilva1\ML-Project\Web\web-app\src\assets\sessionOutputFiles"
+path = os.path.join(parent_dir, directory)
+os.mkdir(path)
 #############################################################
 logging.info("Save to outputfiles")
-tempdf.to_csv(sessionId + r"/" +"output.csv")
+tempdf.to_csv(path + r"/" +"output.csv")
 #############################################################
