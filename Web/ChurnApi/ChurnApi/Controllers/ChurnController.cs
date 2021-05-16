@@ -26,7 +26,15 @@ namespace ChurnAPI.Controllers
         {
             var directoryInfo = TryToCreateNewSessionFolder();
             var inputFilePath = SaveFile(inputFile, directoryInfo.Item1.FullName);
-            return PatchParameter(inputFilePath, directoryInfo.Item2);
+            try
+            {
+                GenarateOutputFile(inputFilePath, directoryInfo.Item2);
+                return Path.Combine(directoryInfo.Item1.FullName, "output.csv");
+            }
+            catch (Exception ex)
+            {
+                return "error!";
+            }
         }
 
         private string SaveFile(IFormFile file, string sessionFolderPath)
@@ -62,7 +70,7 @@ namespace ChurnAPI.Controllers
             return (di, sessionGUID.ToString());
         }
 
-        private string PatchParameter(string fileName, string sessionId)
+        private string GenarateOutputFile(string fileName, string sessionId)
         {
             string result = string.Empty;
             string errors = string.Empty;
