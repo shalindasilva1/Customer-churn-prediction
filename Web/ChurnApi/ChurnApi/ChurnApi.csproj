@@ -11,5 +11,9 @@
     <PackageReference Include="NSwag.AspNetCore" Version="13.11.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PythonModelHelpFiles\" />
+  </ItemGroup>
+
 
 </Project>
