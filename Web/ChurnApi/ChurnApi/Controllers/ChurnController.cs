@@ -14,10 +14,8 @@ namespace ChurnAPI.Controllers
     [Route("[controller]")]
     public class ChurnController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly string ModelPath = @"C:/Users/Shalinda/source/repos/shalindasilva1/ML-Project/Controllers/ModelController.py";
+        private readonly string PythonPath = @"C:/Users/Shalinda/AppData/Local/Programs/Python/Python39/python.exe";
 
         private readonly ILogger<ChurnController> _logger;
 
@@ -28,27 +26,40 @@ namespace ChurnAPI.Controllers
 
         [HttpGet]
         public string Predict()
-        {
-            var cmd = @"c:/Users/Shalinda/source/repos/shalindasilva1/ML-Project/Controllers/ModelController.py";
-            return PatchParameter(cmd, "test.csv");
+        {            
+            return PatchParameter(@"C:\Users\Shalinda\source\repos\shalindasilva1\ML-Project\Controllers\test.csv");
         }
 
-        private string PatchParameter(string cmd, string args)
+        private string PatchParameter(string args)
         {
-            ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = "C:/Users/Shalinda/AppData/Local/Programs/Python/Python39/python.exe";
-            start.Arguments = string.Format("{0} {1}", cmd, args);
-            start.UseShellExecute = false;
-            start.RedirectStandardOutput = true;
-            using (Process process = Process.Start(start))
+            string result = string.Empty;
+            string errors = string.Empty;
+            try
             {
-                using (StreamReader reader = process.StandardOutput)
+                // create process
+                var info = new ProcessStartInfo();
+                info.FileName = PythonPath;
+
+                // provide script and arguments
+                info.Arguments = $"\"{ModelPath}\" \"{args}\"";
+
+                // process start info settings
+                info.UseShellExecute = false;
+                info.CreateNoWindow = true;
+                info.RedirectStandardOutput = true;
+                info.RedirectStandardError = true;
+
+                using (var proc = Process.Start(info))
                 {
-                    string result = reader.ReadToEnd();
-                    Console.Write(result);
+                    result = proc.StandardOutput.ReadToEnd();
+                    errors = proc.StandardError.ReadToEnd();
                 }
+                return result;
             }
-            return "";
+            catch (Exception ex)
+            {
+                throw new Exception("R Script failed: " + result, ex);
+            }
         }
     }
 }
