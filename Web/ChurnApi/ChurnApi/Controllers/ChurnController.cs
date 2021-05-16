@@ -1,12 +1,9 @@
-﻿using IronPython.Hosting;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Scripting.Hosting;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 
 namespace ChurnAPI.Controllers
 {
@@ -24,13 +21,48 @@ namespace ChurnAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public string Predict()
-        {            
-            return PatchParameter(@"C:\Users\Shalinda\source\repos\shalindasilva1\ML-Project\Controllers\test.csv");
+        [HttpPost]
+        public string Predict(IFormFile inputFile)
+        {
+            var directoryInfo = TryToCreateNewSessionFolder();
+            var inputFilePath = SaveFile(inputFile, directoryInfo.Item1.FullName);
+            return PatchParameter(inputFilePath, directoryInfo.Item2);
         }
 
-        private string PatchParameter(string args)
+        private string SaveFile(IFormFile file, string sessionFolderPath)
+        {
+            if (!Directory.Exists(Path.Combine(sessionFolderPath, "input")))
+            {
+                Directory.CreateDirectory(Path.Combine(sessionFolderPath, "input"));
+            }
+            string filePath = Path.Combine(sessionFolderPath, "input", file.FileName);
+            using (var x = System.IO.File.Create(filePath))
+            {
+                file.CopyTo(x);
+            }
+            return filePath;
+        }
+
+        private (DirectoryInfo, string) TryToCreateNewSessionFolder()
+        {
+            Random random = new Random();
+            var sessionGUID = random.Next();
+            string path = Path.Combine(Directory.GetCurrentDirectory(),sessionGUID.ToString());
+            DirectoryInfo di;
+            while (true)
+            {
+                if (!Directory.Exists(path))
+                {
+                    di = Directory.CreateDirectory(path);
+                    break;
+                }
+                sessionGUID = random.Next();
+                path = Path.Combine(Directory.GetCurrentDirectory(), sessionGUID.ToString());
+            }
+            return (di, sessionGUID.ToString());
+        }
+
+        private string PatchParameter(string fileName, string sessionId)
         {
             string result = string.Empty;
             string errors = string.Empty;
@@ -41,7 +73,7 @@ namespace ChurnAPI.Controllers
                 info.FileName = PythonPath;
 
                 // provide script and arguments
-                info.Arguments = $"\"{ModelPath}\" \"{args}\"";
+                info.Arguments = $"\"{ModelPath}\" \"{fileName}\" \"{sessionId}\"";
 
                 // process start info settings
                 info.UseShellExecute = false;

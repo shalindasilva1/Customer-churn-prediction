@@ -20,7 +20,7 @@ loaded_model = pickle.load(open(filename, 'rb'))
 
 #############################################################
 logging.info("Loading input data...")
-df = pd.read_csv(sessionId + r"/" + inputFile)
+df = pd.read_csv(inputFile)
 tempdf = df
 df = df.drop(columns=['nic'])
 X = df.loc[:, df.columns != 'churn']
